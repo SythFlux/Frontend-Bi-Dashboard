@@ -31,6 +31,7 @@ https://github.com/user-attachments/assets/dc46724f-74e9-448d-adff-71dc364c1a46
   - Making the frontend and other components run in containers with Docker
   - Creating new structure in the project, Backend-Frontend-Database
   - Designing API's Creating users, Sending data, Receiving data
+  - Creating API's
   
 
 # Showcase
