@@ -32,7 +32,7 @@ users as this wasn't functional and empty.
 
 <img width="619" height="365" alt="image" src="https://github.com/user-attachments/assets/285debdc-59d0-437f-9896-2bc3fc0c0bb4" />
 
-### Separate chart to choose device
+### Separate that can be added and choose specific device
 
 <img width="615" height="507" alt="image" src="https://github.com/user-attachments/assets/28e80fb2-4c47-49b7-b9fe-f421059c5236" />
 
