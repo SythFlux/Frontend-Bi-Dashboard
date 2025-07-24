@@ -14,7 +14,7 @@ https://github.com/user-attachments/assets/dc46724f-74e9-448d-adff-71dc364c1a46
 
 
 
-## Tech
+## Tech Frontend
 
 - Angular
 - HTML/CSS
