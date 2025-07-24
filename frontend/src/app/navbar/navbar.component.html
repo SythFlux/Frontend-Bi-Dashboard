@@ -1,0 +1,39 @@
+<div [style.width]="isExpanded ? '14em' : '3.3em'"  class="l-navbar" id="navbar" (transitionend)="onSidebarTransitionEnd()">
+  <nav class="nav">
+    <div>
+      <button class="nav-logo btn">
+        <i [class]="isExpanded ? 'bx bx-layer nav-logo-icon' : 'bx bx-menu nav-logo-icon'"></i>
+        <span class="nav-logo-name">VRFB Dashboard</span>
+      </button>
+      <div class="nav-list" id="navbarNav">
+        <a [class.active]="currentRoute === '/home'" [routerLink]="['/home']" class="nav-link">
+          <i class="bx bx-grid-alt nav-icon"></i>
+          <span class="home">Home</span>
+        </a>
+        <a [class.active]="currentRoute === '/measurements'" [routerLink]="['/measurements']" class="nav-link">
+          <i class="bx bx-bar-chart-alt-2 nav-icon"></i>
+          <span class="measurements">Measurements</span>
+        </a>
+        <a [class.active]="currentRoute === '/devices'" [routerLink]="['/devices']" class="nav-link">
+          <i class="bx bxs-battery-charging nav-icon"></i>
+          <span class="devices">Devices</span>
+        </a>
+        <div *ngIf="admin">
+          <a [class.active]="currentRoute === '/users'" [routerLink]="['/users']" class="nav-link">
+            <i class="bx bx-user nav-icon"></i>
+            <span class="measurements">Users</span>
+          </a>
+          <a [class.active]="currentRoute === '/settings'" [routerLink]="['/settings']" class="nav-link">
+            <i class="bx bx-cog nav-icon"></i>
+            <span class="devices">Settings</span>
+          </a>
+        </div>
+      </div>
+    </div>
+    <a [routerLink]="['/login']" class="nav-link">
+      <i class="bx bx-log-out nav-icon"></i>
+      <span class="nav-name" (click)="logout()">Sign Out</span>
+    </a>
+  </nav>
+</div>
+

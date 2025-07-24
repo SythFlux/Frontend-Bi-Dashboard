@@ -1,0 +1,116 @@
+<app-navbar></app-navbar>
+<div [style.margin-left]="isExpanded ? '14em' : '3.3em'" class="content height-100 bg-light">
+  <div class="nav-close">
+    <button class="btn" (click)="toggleSidebar()">
+      <i [class]="isExpanded ? 'bx bx-chevrons-left expand' : 'bx bx-chevrons-right expand'"></i>
+    </button>
+    <button type="button" class="btn align-right" (click)="openModal(addUserModal)" data-bs-target="#add-user-modal" data-bs-toggle="modal">
+      <i class="bx bx-plus-circle bx-tada-hover bx-md"></i>
+    </button>
+  </div>
+
+  <div class="title">
+    <h2>Users</h2>
+  </div>
+
+  <div class="container users">
+    <div class="row justify-content-center">
+      <div *ngIf="session.isAdmin()">
+        <div *ngFor="let user of users">
+          <div class="card">
+            <div class="row no-gutter align-items-center">
+              <div class="col-md-2">
+                <img src="assets/img/user.png" class="card-img">
+              </div>
+              <div class="col-md-8">
+                <div class="card-body">
+                  <h1 class="card-text">{{user.username}}</h1>
+                  <h5 class="card-text">{{user.email}}</h5>
+                  <p class="card-text" *ngIf="user.admin">Has administrator permissions</p>
+                </div>
+              </div>
+              <div class="col-md-2">
+                <div class="card-body">
+                  <button type="button" class="btn card-text" (click)="openModal(editUserModal, user)" data-bs-toggle="modal" data-bs-target="#edit-user-modal">
+                    <i class="bx bx-edit-alt bx-sm"></i>Edit
+                  </button>
+                  <button type="button" class="btn card-text" (click)="openModal(deleteUserModal, user)" data-bs-toggle="modal" data-bs-target="#delete-user-modal">
+                    <i class="bx bxs-trash bx-sm"></i>Delete
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<ng-template #editUserModal let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title">Edit User Details</h5>
+    <button type="button" class="btn-close" aria-label="Close" (click)="closeModal()"></button>
+  </div>
+  <div class="modal-body">
+    <div class="mb-3">
+      <label for="name">Username</label>
+      <input type="text" class="form-control" id="name" #usernameInputEdit value="{{userData?.username}}" aria-label="Name">
+    </div>
+    <div class="mb-3">
+      <label for="email">Email</label>
+      <input type="email" class="form-control" id="email" #emailInputEdit value="{{userData?.email}}" aria-label="EMail">
+    </div>
+    <div class="mb-3">
+      <label for="password">Password (leave empty for no change)</label>
+      <input type="password" class="form-control" id="password" value="" #passwordInputEdit placeholder="no change"  aria-label="password">
+    </div>
+    <button class="btn btn-primary" (click)="editUser(usernameInputEdit.value,emailInputEdit.value,  passwordInputEdit.value)">
+      <i class='bx bxs-save' ></i>
+      <span>Save</span>
+    </button>
+  </div>
+</ng-template>
+
+
+
+<ng-template #deleteUserModal let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title">Delete User</h5>
+    <button type="button" class="btn-close" aria-label="Close" (click)="closeModal()"></button>
+  </div>
+  <div class="modal-body">
+    <div class="alert alert-danger">
+      Are you sure you want to delete the user: <b>{{userData?.username}}</b> ? This action <b>can not be undone!</b>
+    </div>
+    <button class="btn btn-danger" (click)="deleteUser(userData?.username)">Delete User</button>
+  </div>
+</ng-template>
+
+<ng-template #addUserModal let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title">New User Details</h5>
+    <button type="button" class="btn-close" aria-label="Close" (click)="closeModal()"></button>
+  </div>
+  <div class="modal-body">
+    <div class="mb-3">
+      <label for="name">Username</label>
+      <input type="text" class="form-control" id="new-user-name" #usernameInput value="" aria-label="Name">
+    </div>
+    <div class="mb-3">
+      <label for="email">Email</label>
+      <input type="email" class="form-control" id="new-user-email" #emailInput value="" aria-label="EMail">
+    </div>
+    <div class="mb-3">
+      <label for="password">Password</label>
+      <input type="password" class="form-control" id="new-user-password" #passwordInput value="" aria-label="Password">
+    </div>
+    <button class="btn btn-primary" (click)="createNewUser(usernameInput.value, emailInput.value, passwordInput.value)">
+      <i class='bx bxs-save'></i>
+      <span>Save</span>
+    </button>
+  </div>
+</ng-template>

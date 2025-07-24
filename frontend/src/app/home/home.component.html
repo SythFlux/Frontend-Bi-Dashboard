@@ -1,0 +1,41 @@
+<app-navbar></app-navbar>
+<div [style.margin-left]="isExpanded ? '14em' : '3.3em'" class="content height-100 bg-light">
+  <div class="nav-close">
+    <button class="btn" (click)="toggleSidebar()">
+      <i [class]="isExpanded ? 'bx bx-chevrons-left expand' : 'bx bx-chevrons-right expand'"></i>
+    </button>
+  </div>
+  <div class="title">
+    <h2>Dashboard</h2>
+  </div>
+  <div class="row">
+    <div class="card mb-3 shadow-lg col-xl-4">
+      <h5>24-Hour active device report</h5>
+    </div>
+    <div class="card mb-3 shadow-lg col-xl-4">
+      <h5>7-Day active device report</h5>
+    </div>
+    <div class="card mb-3 shadow-lg col-xl-4">
+      <h5>7-Day usage report</h5>
+    </div>
+    <div class="card mb-3 shadow-lg col-xl-4">
+      <h5>7-Day change report</h5>
+    </div>
+  </div>
+  <hr>
+  <a target="_blank" href="../../assets/docs/User_manual.pdf">
+    <div class="card mb-3 shadow-lg add-new-device">
+      <div class="row no-gutters align-items-center">
+        <div class="col-md-2">
+          <img ngSrc="../../assets/img/document.png" class="card-img" alt="..." height="128" width="128">
+        </div>
+        <div class="col-md-8">
+          <div class="card-body">
+            <h2 class="card-title">User Manual</h2>
+            <p class="card-text">Click here to access the manual for users.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </a>
+</div>

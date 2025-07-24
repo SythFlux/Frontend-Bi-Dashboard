@@ -1,0 +1,63 @@
+<div class="container-fluid ps-md-0">
+  <div class="row g-0">
+    <div class="d-none d-md-flex col-md-4 col-lg-6 bg-image"></div>
+    <div class="col-md-8 col-lg-6">
+      <div class="login d-flex align-items-center py-5">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-9 col-lg-8 mx-auto">
+              <div class="jumbotron">
+                <h1 class="text-center">VANADIUM REDOX FLOW BATTERY</h1>
+                <p class="text-center">Please login to continue</p>
+              </div>
+
+              <!-- LOGIN FORM -->
+              <form [formGroup]="loginForm" (submit)="submitLoginForm()">
+                <div class="input-group mb-3">
+                  <input type="text" class="form-control" id="floating-input" placeholder="Username" formControlName="username" required (input)="resetFields(1)"/>
+                  <label for="floating-input" class="visually-hidden">Username</label>
+                </div>
+
+                <div class="input-group mb-3">
+                  <input [type]="hide ? 'password' : 'text'" class="form-control" id="floating-password" placeholder="Password" formControlName="password" (input)="resetFields(2)" />
+                  <label for="floating-password" class="visually-hidden">Password</label>
+                  <button class="btn btn-outline-secondary" type="button" (click)="hide = !hide">
+                    <i class="fa" [ngClass]="{'fa-eye-slash': hide, 'fa-eye': !hide}"></i>
+                  </button>
+                </div>
+
+                <div class="d-grid">
+                  <button class="btn btn-lg btn-primary btn-login text-uppercase fw-bold mb-2" type="submit" name="send">Sign in</button>
+                  <div *ngIf="wrongPassword" class="alert alert-danger">
+                    <div>Combination of username and password is incorrect</div>
+                  </div>
+                  <div class="text-center">
+                    <a class="small" href="/resetPassword">Forgot password?</a>
+                  </div>
+                </div>
+              </form>
+
+              <!-- FORGOT PASSWORD FORM -->
+              <div class="collapse" id="forgot-password">
+                <form>
+                  <div class="alert alert-info" role="alert">
+                    Enter your email to reset your password. A link will be sent to reset your password.
+                  </div>
+                  <div class="input-group mb-3">
+                    <!-- Removed formControlName here -->
+                    <input type="email" class="form-control" id="forgot-email" placeholder="E-Mail" required />
+                    <label for="forgot-email" class="visually-hidden">Email</label>
+                  </div>
+                  <div class="d-grid">
+                    <button class="btn btn-lg btn-primary btn-login text-uppercase fw-bold mb-2" type="submit" name="send">Reset Password</button>
+                  </div>
+                </form>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,92 @@
+/* You can add global styles to this file, and also import other style files */
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap");
+@import "font-awesome";
+
+
+body {
+  font-family: 'Nunito', sans-serif;
+  overflow: auto;
+}
+
+h1, h2, h3, h4 {
+  font-family: 'Nunito', sans-serif;
+  font-weight: 800;
+}
+
+span {
+  font-family: 'Nunito', sans-serif;
+}
+
+.title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1em;
+}
+
+.nav-close {
+  position: absolute;
+}
+
+.btn:active,
+.btn:focus-visible {
+  outline: none;
+  border: 1px solid #f8f9fa;
+  border-radius: 0.375rem;
+}
+
+.btn-primary {
+  margin-left: 1rem;
+  margin-bottom: 0.5vh;
+  background-color: #4723D9;
+  border-color: #4723D9;
+}
+
+.btn-primary:hover {
+  background-color: #361cb1;
+  border-color: #361cb1;
+}
+
+.btn-primary:active {
+  background-color: #361cb1;
+  border-color: #361cb1;
+}
+
+.btn-outline-primary {
+  border-color: #4723D9;
+  color: #4723D9;
+}
+
+.btn-outline-primary:hover {
+  background-color: #361cb1;
+  border-color: #361cb1;
+  color: white;
+}
+
+a {
+  text-decoration: none !important;
+}
+
+.content {
+  transition: margin-left .5s ease;
+  display: flex;
+  flex-direction: column;
+}
+.expand {
+  padding-top: 0.2em;
+  font-size: 2em;
+}
+
+.card {
+  padding:10px;
+  margin: 10px;
+}
+
+.card-img {
+  max-width: 150px;
+}
+
+.card-body {
+  text-align: left;
+  color: #4723D9;
+}

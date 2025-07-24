@@ -1,0 +1,279 @@
+<app-navbar></app-navbar>
+<div [style.margin-left]="isExpanded ? '14em' : '3.3em'" class="content height-100 bg-light">
+  <div class="nav-close">
+    <button class="btn" (click)="toggleSidebar()">
+      <i [class]="isExpanded ? 'bx bx-chevrons-left expand' : 'bx bx-chevrons-right expand'"></i>
+    </button>
+    <button type="button" class="btn align-right" data-bs-target="#add-device-modal" data-bs-toggle="modal">
+      <i class="bx bx-plus-circle bx-tada-hover bx-md"></i>
+    </button>
+  </div>
+
+  <div class="title">
+    <h2>Devices</h2>
+  </div>
+
+  <div *ngIf="isLoadingDevices" class="spinner-border" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+
+  <div *ngIf="error" class="alert alert-danger" role="alert">
+    {{ error }}
+  </div>
+
+  <div class="container devices" *ngIf="!isLoadingDevices">
+    <div class="row justify-content-center">
+      <div class="alert alert-info alert-dismissible fade show" role="alert" *ngIf="showInfo">
+        Device <b>{{deviceName}}</b> has been created with API Key: <b><a href="/" class="alert-link" (click)="copyToClipboard($event)">{{latestKey}}</a></b><i>(click to copy to clipboard) </i><br>Save this key in a separate file, this key <b>cannot</b> be copied again
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" (click)="resetAlert()"></button>
+      </div>
+      <div *ngFor="let device of devices; index as i;">
+        <div class="card">
+          <div class="row no-gutter align-items-center">
+            <div class="col-md-auto">
+              <img src="assets/img/device4.png" class="card-img" alt="...">
+            </div>
+            <div class="col-md-5">
+              <div class="card-body">
+                <h1 class="card-text">{{device.name}}</h1>
+                <h5 class="card-text">{{device.description}}</h5>
+                <!-- <p class="card-text">{{(device.online ? 'online' : 'offline')}}</p> -->
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="card-body">
+                <h5 class="card-text">api key: <input type="text" style="width: 45%; display: inline;" class="form-control" id="api-key" placeholder="{{device.api_key_begin}}..." disabled></h5>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="card-body">
+                <button type="button" class="btn card-text" (click)="openModal(editDeviceModal, device)" data-bs-toggle="modal" data-bs-target="#edit-device-modal">
+                  <i class="bx bx-edit-alt bx-sm"></i>Edit
+                </button>
+                <button type="button" class="btn card-text" (click)="openModal(deleteDeviceModal, device)" data-bs-toggle="modal" data-bs-target="#delete-device-modal">
+                  <i class="bx bxs-trash bx-sm"></i>Delete
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" #newDeviceModal id="new-device-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">new device added</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="alert alert-danger">
+          Given is the new api key <b>Store it carefully as it cannot be seen again!</b>
+          <br>
+          api key: {{newAPIKey}}
+        </div>
+        <div class="form-floating mb-3">
+          <label id="new-api-key">{{newAPIKey}}</label>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="add-device-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Add new device</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="deviceForm" (submit)="saveDevice()">
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" formControlName="deviceName" id="device-name" placeholder="Battery 1" aria-label="DeviceName">
+            <label for="device-name">Device Name</label>
+          </div>
+          <div class="form-floating mb-3">
+            <textarea class="form-control" formControlName="deviceDescription" placeholder="A short description about the device" id="device-description"></textarea>
+            <label for="device-description">Description</label>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="api-key" placeholder="An API key" disabled>
+            <label for="api-key">The API key will be generated on creation</label>
+          </div>
+          <!-- removed the ability to choose icon bc why ?-->
+          <!-- <div class="container">
+            <h4>Icon</h4>
+            <div class="row">
+              <div class="image-radio col-md-3">
+                <label>
+                  <input type="radio" name="image-choice">
+                  <img src="assets/img/device1.png" alt="Image 1" height="150px" width="150px">
+                </label>
+              </div>
+              <div class="image-radio col-md-3">
+                <label>
+                  <input type="radio" name="image-choice">
+                  <img src="assets/img/device2.png" alt="Image 1" height="150px" width="150px">
+                </label>
+              </div>
+              <div class="image-radio col-md-3">
+                <label>
+                  <input type="radio" name="image-choice">
+                  <img src="assets/img/device3.png" alt="Image 1" height="150px" width="150px">
+                </label>
+              </div>
+              <div class="image-radio col-md-3">
+                <label>
+                  <input type="radio" name="image-choice">
+                  <img src="assets/img/device4.png" alt="Image 1" height="150px" width="150px">
+                </label>
+              </div> 
+            </div>
+          </div> --> 
+          <button class="btn btn-primary" type="submit" data-bs-dismiss="modal">
+            <i class='bx bxs-save'>
+              <span>Save</span>
+            </i>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" #editDeviceModal id="edit-device-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Change device details</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-3">
+          <label for="edit-device-name">device name</label>
+          <input type="text" class="form-control" id="edit-device-name" value="{{deviceData?.name}}" aria-label="DeviceName">
+        </div>
+        <div class="mb-3">
+          <label for="edit-device-description">Device description</label>
+          <textarea class="form-control" value="{{deviceData?.description}}" id="edit-device-description"></textarea>
+        </div>
+        <!-- removed the ability to choose icon bc why ?-->
+        <!-- <div class="container">
+          <h4>Icon</h4>
+          <div class="row">
+            <div class="image-radio col-md-3">
+              <label>
+                <input type="radio" name="image-choice">
+                <img src="assets/img/device1.png" alt="Image 1" height="150px" width="150px">
+              </label>
+            </div>
+            <div class="image-radio col-md-3">
+              <label>
+                <input type="radio" name="image-choice">
+                <img src="assets/img/device2.png" alt="Image 1" height="150px" width="150px">
+              </label>
+            </div>
+            <div class="image-radio col-md-3">
+              <label>
+                <input type="radio" name="image-choice">
+                <img src="assets/img/device3.png" alt="Image 1" height="150px" width="150px">
+              </label>
+            </div>
+            <div class="image-radio col-md-3">
+              <label>
+                <input type="radio" name="image-choice">
+                <img src="assets/img/device4.png" alt="Image 1" height="150px" width="150px">
+              </label>
+            </div>
+          </div>
+        </div> -->
+        <button class="btn btn-primary update-device-btn" (click)="updateDevice(deviceData)" data-bs-dismiss="modal">
+          <i class='bx bxs-save'></i>
+          <span>Save</span>
+        </button>
+        <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#reset-device-modal">
+          <i class='bx bx-reset'></i>
+          <span>Regenerate API key</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" #deleteDeviceModal id="delete-device-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Delete Device</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="alert alert-danger">
+          Are you sure you want to delete this device? This action <b>can not be undone!</b>
+        </div>
+        <button class="btn btn-danger" (click)="deleteDevice(deviceData.name)" data-bs-dismiss="modal">Delete Device</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="reset-device-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Regenerating the API key</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="alert alert-danger">
+          Regenerating the API key of this device will delete all the data attached to this device. <b>This action can not be undone!</b>
+        </div>
+        <div class="btn btn-danger" id="reset-device-btn" data-bs-toggle="modal" data-bs-target="#edit-device-modal">Reset Device</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+  <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-header">
+      <strong class="me-auto">Info</strong>
+      <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+    <div class="toast-body">
+      The data has been reset!
+    </div>
+  </div>
+</div>
+
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+  <div id="updateToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-header">
+      <strong class="me-auto">Info</strong>
+      <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+    <div class="toast-body">
+      Device has been updated!
+    </div>
+  </div>
+</div>
+
+
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+  <div id="new_device" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-header">
+      <strong class="me-auto">Info</strong>
+      <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+    <div class="toast-body">
+      Device has been updated!
+    </div>
+  </div>
+</div>
+
+

@@ -1,0 +1,106 @@
+<app-navbar></app-navbar>
+<div [style.margin-left]="isExpanded ? '14em' : '3.3em'" class="content height-100 bg-light">
+  <div class="nav-close">
+    <button class="btn" (click)="toggleSidebar()">
+      <i [class]="isExpanded ? 'bx bx-chevrons-left expand' : 'bx bx-chevrons-right expand'"></i>
+    </button>
+  </div>
+  <div class="title">
+    <h2>Settings</h2>
+  </div>
+  <div class="row justify-content-center">
+    <div class="card mb-5 shadow-lg col-xl-5">
+      <a target="_blank" href="../../assets/docs/User_manual.pdf">
+        <div class="row no-gutter align-items-center">
+          <div class="col-md-2">
+            <img src="../../assets/img/document.png" class="card-img" style="max-width: 150px" alt="...">
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h2 class="card-title">User Manual</h2>
+              <p class="card-text">Click here to access the manual for users.</p>
+            </div>
+          </div>
+        </div>
+      </a>
+    </div>
+    <div class="card mb-5 shadow-lg col-xl-5">
+      <a target="_blank" href="../../assets/docs/Admin_manual.pdf">
+        <div class="row no-gutter align-items-center">
+          <div class="col-md-2">
+            <img src="../../assets/img/document.png" class="card-img" style="max-width: 150px" alt="...">
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h2 class="card-title">Admin Manual</h2>
+              <p class="card-text">Click here to access the manual for admin.</p>
+            </div>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+  <hr>
+  <div class="table-responsive text-center">
+    <table class="table table-borderless">
+      <thead>
+      <tr>
+        <th scope="col">Device Name</th>
+        <th scope="col">Description</th>
+        <th scope="col">Edit</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let device of devices;">
+        <td>{{device.name}}</td>
+        <td>{{device.description}}</td>
+        <td><button type="button" class="btn bx bx-edit-alt" data-bs-toggle="modal" (click)="openModal(device.name)"  data-bs-target="#permissionModal"></button></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+    <div class="modal fade" id="permissionModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="permissionModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="permissionModalLabel">Edit Device Permissions <br>Device : {{device_name}}1</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="table-responsive text-center">
+                  <table class="table table-borderless">
+                    <thead>
+                    <tr>
+                      <th class="col-md-5">Username</th>
+                      <th class="col-md-4">E-Mail</th>
+                      <th class="col-md-2">Permission</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let permission of permissions">
+                      <td>{{permission.username}}</td>
+                      <td>{{permission.email}}</td>
+                      <td><select class="form-select" [(ngModel)]="permission.permission" name="permission-{{permission.username}}" aria-label="Select Permissions">
+                        <option value='none'>None</option>
+                        <option value='read'>Read</option>
+                        <option value='modify'>Read and Modify</option>
+                      </select></td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" (click)="savePermissions()" class="btn save-btn" data-bs-dismiss="modal"><i class="bx bxs-save"></i>Save</button>
+            <button type="button" class="btn delete-btn" data-bs-dismiss="modal"><i class="bx bxs-trash-alt"></i>Discard</button>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+
