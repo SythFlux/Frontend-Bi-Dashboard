@@ -3,6 +3,11 @@ A stripped down version of the UI i built as part of a collaborative project. Th
 This project is a relay project, based off the previous group who made the first design of the site, I worked on the measurements page and
 users as this wasn't functional and empty.
 
+## About
+For this project I was tasked to work with my fellow students on creating a Bi-Dashboard that was secure
+and could receive data from external devices. Seting up the backend and frontend, making sure that everything 
+was automated and could be setup with a simple docker compose up command 
+
 ## Tech
 
 - Angular
