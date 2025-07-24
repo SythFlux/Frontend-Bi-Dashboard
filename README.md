@@ -1,6 +1,9 @@
 # Frontend-Bi-Dashboard
 A stripped down version of the UI i built as part of a collaborative project. This project is setup for demostrative purposes
 
+#About
+-The frontend is setup in angular 
+
 ## My Role
 
 - Responsible for:
@@ -8,6 +11,8 @@ A stripped down version of the UI i built as part of a collaborative project. Th
   - Implementing graphs using Chart.js
   - Fetching data via REST API calls and handling asynchronous updates
   - Ensuring the UI was responsive and easy to use
+  - Structure between the components
+  - Making the frontend run in containers with Docker
   
 
 # Showcase
