@@ -1,5 +1,5 @@
 export const environment = {
     production: true,
-    apiUrl: 'https://rfb-test.nl'  // Your live domain
+    apiUrl: 'localhost:8000'  // Your live domain
   };
   
