@@ -8,6 +8,11 @@ For this project I was tasked to work with my fellow students on creating a Bi-D
 and could receive data from external devices. Seting up the backend and frontend, making sure that everything 
 was automated and could be setup with a simple docker compose up command 
 
+## demonstration
+
+https://github.com/user-attachments/assets/dc46724f-74e9-448d-adff-71dc364c1a46
+
+
 
 ## Tech
 
