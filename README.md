@@ -1,5 +1,7 @@
 # Frontend-Bi-Dashboard
-A stripped down version of the UI i built as part of a collaborative project. This project is setup for demostrative purposes
+A stripped down version of the UI i built as part of a collaborative project. This project is setup for demostrative purposes.
+This project is a relay project, based off the previous group who made the first design of the site, I worked on the measurements page and
+users as this wasn't functional and empty.
 
 ## Tech
 
@@ -15,8 +17,9 @@ A stripped down version of the UI i built as part of a collaborative project. Th
   - Implementing graphs using Chart.js
   - Fetching data via REST API calls and handling asynchronous updates
   - Ensuring the UI was responsive and easy to use
-  - Structure between the components
-  - Making the frontend run in containers with Docker
+  - Making the frontend and other components run in containers with Docker
+  - Creating new structure in the project, Backend-Frontend-Database
+  - Designing API's Creating users, Sending data, Receiving data
   
 
 # Showcase
